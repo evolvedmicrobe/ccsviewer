@@ -3,96 +3,95 @@
 
 public partial class MainWindow
 {
-	private global::Gtk.UIManager UIManager;
+	private Gtk.UIManager UIManager;
 	
-	private global::Gtk.Action FileAction;
+	private Gtk.Action FileAction;
 	
-	private global::Gtk.VBox vbox1;
+	private Gtk.VBox vbox1;
 	
-	private global::Gtk.MenuBar menubar2;
+	private Gtk.MenuBar menubar2;
+		
+	private Gtk.Table table1;
 	
-	private global::Gtk.HBox hbox1;
+	private Gtk.ScrolledWindow GtkScrolledWindow;
 	
-	private global::Gtk.Table table1;
+	private Gtk.TextView textview_seqnames;
 	
-	private global::Gtk.ScrolledWindow GtkScrolledWindow;
+	private Gtk.ScrolledWindow GtkScrolledWindow1;
 	
-	private global::Gtk.TextView textview_seqnames;
-	
-	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-	
-	private global::Gtk.TextView textview_seqs;
+	private Gtk.TextView textview_seqs;
 
 	protected virtual void Build ()
 	{
-		global::Stetic.Gui.Initialize (this);
+		Stetic.Gui.Initialize (this);
 		// Widget MainWindow
-		this.UIManager = new global::Gtk.UIManager ();
-		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
-		this.FileAction = new global::Gtk.Action ("FileAction", global::Mono.Unix.Catalog.GetString ("File"), null, null);
-		this.FileAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("File");
+		this.UIManager = new Gtk.UIManager ();
+		Gtk.ActionGroup w1 = new Gtk.ActionGroup ("Default");
+		this.FileAction = new Gtk.Action ("FileAction", "File", null, null);
+		this.FileAction.ShortLabel = "File";
 		w1.Add (this.FileAction, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
-		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
-		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		this.Name = "ccsviewer";
+		this.Title = "CCS Viewer";
+		this.WindowPosition = ((Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
-		this.vbox1 = new global::Gtk.VBox ();
+		this.vbox1 = new Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.UIManager.AddUiFromString ("<ui><menubar name='menubar2'><menu name='FileAction' action='FileAction'/></menubar></ui>");
-		this.menubar2 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar2")));
+		this.menubar2 = ((Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar2")));
 		this.menubar2.Name = "menubar2";
 		this.vbox1.Add (this.menubar2);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.menubar2]));
+		Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.vbox1 [this.menubar2]));
 		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
-		// Container child vbox1.Gtk.Box+BoxChild
-		this.hbox1 = new global::Gtk.HBox ();
-		this.hbox1.Name = "hbox1";
-		this.hbox1.Spacing = 6;
-		// Container child hbox1.Gtk.Box+BoxChild
-		this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+
+		// Create Table
+		this.table1 = new Gtk.Table (((uint)(3)), ((uint)(3)), false);
 		this.table1.Name = "table1";
 		this.table1.RowSpacing = ((uint)(6));
 		this.table1.ColumnSpacing = ((uint)(6));
-		// Container child table1.Gtk.Table+TableChild
-		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
+
+		// Seq Names Window
+		this.GtkScrolledWindow = new Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.textview_seqnames = new global::Gtk.TextView ();
+		this.GtkScrolledWindow.ShadowType = ((Gtk.ShadowType)(1));
+		this.textview_seqnames = new Gtk.TextView ();
 		this.textview_seqnames.CanFocus = true;
 		this.textview_seqnames.Name = "textview_seqnames";
 		this.GtkScrolledWindow.Add (this.textview_seqnames);
 		this.table1.Add (this.GtkScrolledWindow);
-		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow]));
+        // Update table positions
+		Gtk.Table.TableChild w4 = ((Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow]));
 		w4.TopAttach = ((uint)(1));
 		w4.BottomAttach = ((uint)(3));
-		w4.XOptions = ((global::Gtk.AttachOptions)(6));
-		// Container child table1.Gtk.Table+TableChild
-		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
+        w4.LeftAttach = ((uint)0);
+        w4.RightAttach = ((uint)1);
+//        w4.XOptions = (Gtk.AttachOptions.Expand);
+
+
+        // Alignment Window
+		this.GtkScrolledWindow1 = new Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
-		this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
+		this.GtkScrolledWindow1.ShadowType = ((Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-		this.textview_seqs = new global::Gtk.TextView ();
+		this.textview_seqs = new Gtk.TextView ();
 		this.textview_seqs.CanFocus = true;
 		this.textview_seqs.Name = "textview_seqs";
 		this.GtkScrolledWindow1.Add (this.textview_seqs);
 		this.table1.Add (this.GtkScrolledWindow1);
-		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow1]));
+		Gtk.Table.TableChild w6 = ((Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow1]));
 		w6.TopAttach = ((uint)(1));
 		w6.BottomAttach = ((uint)(3));
 		w6.LeftAttach = ((uint)(1));
 		w6.RightAttach = ((uint)(3));
-		this.hbox1.Add (this.table1);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.table1]));
-		w7.Position = 0;
-		this.vbox1.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
+		
+        // Add table
+        this.vbox1.Add (this.table1);
+		Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox1 [this.table1]));
 		w8.Position = 1;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
@@ -101,7 +100,7 @@ public partial class MainWindow
 		this.DefaultWidth = 741;
 		this.DefaultHeight = 300;
 		this.Show ();
-		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.FileAction.Activated += new global::System.EventHandler (this.activateSignal);
+		this.DeleteEvent += new Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.FileAction.Activated += new System.EventHandler (this.activateSignal);
 	}
 }

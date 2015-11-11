@@ -4,7 +4,7 @@ using Pango;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using TestApp;
+using ccsviewer;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -14,20 +14,20 @@ public partial class MainWindow: Gtk.Window
     TextTag C;
     TextTag G;
     TextTag T;
-
-    public MainWindow () : base (Gtk.WindowType.Toplevel)
+    TextTag Blank;
+    CCSDataSet data;
+    public MainWindow (CCSDataSet data) : base (Gtk.WindowType.Toplevel)
     {
-        MSA msa = new MSA ();
+        this.data = data;
         Build ();
-        //createBelvuAlignment ();
 
         A = CreateTag ("red", "black");
         C = CreateTag ("blue", "white");
         G = CreateTag ("yellow", "black");
         T = CreateTag ("green","white");
-       // this.table2.ModifyFont (FontDescription.FromString ("Courier"));
-       // this.textview1.fon
-        drawAlignment(msa);
+        Blank = CreateTag ("white", "black");
+
+        drawAlignment();
     }
 
     public void createBelvuAlignment() {
@@ -53,13 +53,13 @@ public partial class MainWindow: Gtk.Window
 
     }
 
-    private void drawAlignment(MSA aln) {
+    private void drawAlignment() {
 
         // Write sequence names first
-        var names = String.Join ("\n", aln.Sequences.Select (z => z.Name));
+        var names = String.Join ("\n", data.Reads.Select (z => z.Name));
         this.textview_seqnames.Buffer.Text = names;
 
-        var seqs = String.Join ("\n", aln.Sequences.Select (z => z.Sequence));
+        var seqs = String.Join ("\n", data.Reads.Select (z => z.Sequence));
         this.textview_seqs.Buffer.Text = seqs;
         var iter = this.textview_seqs.Buffer.GetIterAtLine (0);
         int pos = 0;
@@ -80,6 +80,9 @@ public partial class MainWindow: Gtk.Window
             case "T":
                 tag = T;
                 break;
+            case "-":
+                tag = Blank;
+                break;
             case "\n":
                 line++;
                 pos = 0;
@@ -89,6 +92,7 @@ public partial class MainWindow: Gtk.Window
                 textview_seqs.Buffer.ApplyTag (tag, iter, textview_seqs.Buffer.GetIterAtLineOffset (line, ++pos));
             }
         } while(iter.ForwardChar ());
+
     }
 
 
